@@ -1,5 +1,5 @@
 //import { useHistory } from "react-router";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import React, { Component } from 'react'
 
 export default class App extends Component {
@@ -42,6 +42,10 @@ return (
             <input name="password" type="text"/>
             <input type="submit"/>
         </form>
+        <h1></h1>
+        <h1></h1>
+        <h1></h1>
+        <Link to= "/profile" ><button>Enter Concert Hunt</button></Link>
         </div>
     
 
