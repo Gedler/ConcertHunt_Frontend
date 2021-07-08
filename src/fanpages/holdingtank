@@ -1,0 +1,29 @@
+
+
+
+fanCard
+<div>
+<h1>Fan Tag: {user}</h1>
+            <h2>Location: {location}</h2>
+        </div>
+        
+
+
+Concertcard
+        <div>
+            <h1>Venue: {venue} </h1>
+            <h2>Location: {location} </h2>
+            <h3>Price: {price} </h3>
+            <p>There are {people_attending} going to this event!</p>
+            <button onClick= {handleAttendConcert({id})}>Add To Concert List</button>
+        </div>
+    )
+}
+
+
+ArtistCard 
+ <div>
+            <h1>Artist: {name}</h1>
+            <h2>Location: {location} </h2>
+         
+        </div>

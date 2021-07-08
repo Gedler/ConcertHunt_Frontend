@@ -14,7 +14,8 @@ export default class App extends Component {
  
   state = {
 
-    currentFan: "", 
+    loggedFan_id: "", 
+    fanName: "",
     all_fans: [],
     concerts: [], 
     all_artists: [],
@@ -25,7 +26,13 @@ export default class App extends Component {
 
   }
 
+
+
+  
   componentDidMount(){
+
+    let id = ""
+   
 
     fetch("http://localhost:3001/concerts", {
       method: "GET",
@@ -70,6 +77,9 @@ export default class App extends Component {
     })
   })
 
+
+ 
+
   fetch("http://localhost:3001/followers")
   .then(res => res.json())
   .then(followers => {
@@ -77,27 +87,34 @@ export default class App extends Component {
       followers: followers})
   })
 
-  this.finishLogin = (userInfo) => {
+  this.finishLogin = (userInfo, user_id) => {
+    console.log(userInfo)
+    let id = user_id
+    console.log(id)
     this.setState({
-      currentFan: userInfo.fan,
-      token: !this.state.token
+      
+      fanName: userInfo.fan, //any state I put here will update its value once the function been called.
+                            //but if I send the states down as a prob from here, it always has a value of undefined.
       
     })
      console.log(userInfo)
-      this.localToken(userInfo)
   
   }
-  
-  this.localToken=(obj)=>{
-  console.log("This is the localToken",obj)
-  console.log(obj.fan)
 
-    if (localStorage.token !== "undefined" && localStorage.length === 1){
+  console.log(id)
+  
+  this.localToken = (obj)=>{ //this isn't updating the token at all. The token state stays at its default value
+
+    if (localStorage.length === 2){
       this.setState({
-        fanName: obj.fan
+        loggedFan_id: obj.id, 
+        token: !this.state.token
       })
     }
   }
+
+  const getUserId = this.state.all_fans.filter(fan => fan.user === this.state.fanName)
+  console.log(getUserId)
 
 
 
@@ -124,8 +141,8 @@ export default class App extends Component {
 
 
 this.getUserProducts = () => {
-  const currentFan = this.state.all_fans.find(fan => fan.user===this.state.currentFan)
-  const userProducts = this.state.attending_concerts.filter(concerts => concerts.fan_id === currentFan.id)
+  const currentFans = this.state.all_fans.find(fan => fan.user===this.state.currentFan)
+  const userProducts = this.state.attending_concerts.filter(concerts => concerts.fan_id === currentFans.id)
   
 this.setState({
     current_user_concerts: userProducts
@@ -163,11 +180,23 @@ this.setState({
 <BrowserRouter>
 <Switch>
         <Route path="/profile">
-              <Profile></Profile>
+              <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts}
+
+                        
+                          >
+              </Profile>
         </Route>
 
         <Route path="/main">
-          <Main concerts = {this.state.concerts}></Main>
+          <Main concerts = {this.state.concerts} fanName = {this.state.fanName} loggedFan_id = {this.state.loggedFan_id} id= {this.id}
+                fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts}
+            
+            
+            
+            
+            >
+
+          </Main>
         </Route>
 
         <Route path="/lounge">
@@ -186,10 +215,11 @@ this.setState({
         
         
         <Route path="/">
-                <Login finishLogin={this.finishLogin}>
+                <Login finishLogin={this.finishLogin}
                       token={this.state.token}
                       loggedInFan={this.state.currentFan}
                     userInfo={this.getUserProducts}
+                    localToken={this.localToken}>
       </Login>
       </Route>
 </Switch>

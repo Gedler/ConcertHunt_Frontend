@@ -24,9 +24,11 @@ this.handleLogin=(e)=> {
     
     .then(res => res.json())
     .then((userInfo) => {
+        let user_id= userInfo.id
           console.log("This is the 2nd .then",userInfo)
     localStorage.token = userInfo.token
-    this.props.finishLogin(userInfo)
+    this.props.finishLogin(userInfo, user_id)
+    this.props.localToken(userInfo)
 
     })
 }

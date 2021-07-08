@@ -15,11 +15,11 @@ return(
         <h1>Concert Hunt</h1>
         <nav classname="Header">
             
-            <a href="/main">Home|</a>
-            <a href="/lounge">Lounge|</a>
-            <a href="/artists">Artists|</a>
-            <a href="#">Profile|</a>
-        
+            <Link to="/main"><a href="#">Home|</a></Link>
+            <Link to="lounge"><a href="/lounge">Lounge|</a></Link>
+            <Link to="/artists"><a href="/artists">Artists|</a></Link>
+            <Link to="/profile"><a href="#">Profile|</a>
+        </Link>
         </nav>
     </div>
 
