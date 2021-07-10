@@ -27,3 +27,54 @@ ArtistCard
             <h2>Location: {location} </h2>
          
         </div>
+
+
+        // getUserConcerts = () => {
+//   const getUserFromAllUsers = this.state.all_fans.find(fan => {
+//                 fan.user === this.state.currentFan
+//                 console.log(getUserFromAllUsers)
+//     })
+
+//     const getUserAttendingConcerts = this.state.attending_concerts.filter(attending => 
+//             attending.fan_id === getUserFromAllUsers.id)
+//             console.log(getUserAttendingConcerts)
+    
+
+//     const getUserConcertts = this.state.concerts.filter(concert => 
+//           concert.attending_concerts.id === getUserAttendingConcerts)
+//           console.log(getUserConcerts)
+    
+//     this.setState({
+//       current_user_concerts: getUserConcertts
+//     })
+  //}
+
+   // if Userproducts.length > 0 {
+     // let iterator = userproducts.values 
+     // for (let letter of iterator )
+     //  const userProducts = this.state.attending_concerts.filter(concerts => concerts.fan_id === 
+   }
+  //var iterator = arr.values();
+  //for (let letter of iterator))
+  //console.log(userProducts)
+  //attending concerts has concert id 
+  //return concerts that has the same id as the attending concert actual concert id 
+
+   //const blah = getConcertIDs.map( ids => {ids})
+   //console.log(blah)
+
+
+   //this.setState({
+    // grabIds: getConcertIDs //this has the id of all concerts 
+   //})
+
+
+
+
+  // const getConcerts = this.state.concerts.filter((concert) => concert.concert_id === currentFans.id)
+   //console.log(getConcerts)
+
+
+
+
+

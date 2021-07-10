@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function DeleteConcert({loggedFan_id, attending_concerts}) {
+function DeleteConcert({loggedFan_id, attending_concerts, displayUserConcert}) {
 
     console.log(loggedFan_id)
 

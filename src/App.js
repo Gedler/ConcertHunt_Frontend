@@ -23,18 +23,29 @@ export default class App extends Component {
     attending_concerts: [],
     followers: [],
     token: false, 
+    grabIds: {},
+    value1: "", 
+    value2: "",
+    value3: "",
+    value4: "",
+    value5: "",
+    displayLoggedUserConcerts: []
+
 
   }
 
-
-
-  
   componentDidMount(){
 
-    let id = ""
-   
+    const object1 = {
+      a: 'somestring',
+      b: 42
+    };
+    
+    for (const [key, value] of Object.entries(object1)) {
+      console.log(`${key}: ${value}`);
+    }
 
-    fetch("http://localhost:3001/concerts", {
+  fetch("http://localhost:3001/concerts", {
       method: "GET",
       headers: {Authorization: `Bearer ${localStorage.token}`}
     })
@@ -52,10 +63,8 @@ export default class App extends Component {
   .then(res => res.json())
   .then(all_fans => {
     this.setState({
-      all_fans: all_fans
-    })
+      all_fans: all_fans})
   })
-
 
   fetch("http://localhost:3001/artists", {
     method: "GET",
@@ -64,21 +73,15 @@ export default class App extends Component {
   .then(res => res.json())
   .then(artists => {
     this.setState({
-      all_artists: artists
-    })
-
+      all_artists: artists})
   })
 
   fetch("http://localhost:3001/attending_concerts")
   .then(res => res.json())
   .then(attending_concerts => {
     this.setState({
-      attending_concerts: attending_concerts
-    })
+      attending_concerts: attending_concerts})
   })
-
-
- 
 
   fetch("http://localhost:3001/followers")
   .then(res => res.json())
@@ -87,91 +90,50 @@ export default class App extends Component {
       followers: followers})
   })
 
-  this.finishLogin = (userInfo, user_id) => {
-    console.log(userInfo)
-    let id = user_id
-    console.log(id)
-    this.setState({
-      
-      fanName: userInfo.fan, //any state I put here will update its value once the function been called.
-                            //but if I send the states down as a prob from here, it always has a value of undefined.
-      
-    })
-     console.log(userInfo)
+this.finishLogin = (userInfo) => {  
+
+this.setState({fanName: userInfo.fan})
   
-  }
+const fanThatLoggedIn = this.state.all_fans.find((fan) => fan.user===this.state.fanName)
+console.log(fanThatLoggedIn)
+const userProducts = this.state.attending_concerts.filter((concerts) => concerts.fan_id === fanThatLoggedIn.id)
+const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
 
-  console.log(id)
-  
-  this.localToken = (obj)=>{ //this isn't updating the token at all. The token state stays at its default value
-
-    if (localStorage.length === 2){
-      this.setState({
-        loggedFan_id: obj.id, 
-        token: !this.state.token
-      })
-    }
-  }
-
-  const getUserId = this.state.all_fans.filter(fan => fan.user === this.state.fanName)
-  console.log(getUserId)
-
-
-
-// getUserConcerts = () => {
-//   const getUserFromAllUsers = this.state.all_fans.find(fan => {
-//                 fan.user === this.state.currentFan
-//                 console.log(getUserFromAllUsers)
-//     })
-
-//     const getUserAttendingConcerts = this.state.attending_concerts.filter(attending => 
-//             attending.fan_id === getUserFromAllUsers.id)
-//             console.log(getUserAttendingConcerts)
-    
-
-//     const getUserConcertts = this.state.concerts.filter(concert => 
-//           concert.attending_concerts.id === getUserAttendingConcerts)
-//           console.log(getUserConcerts)
-    
-//     this.setState({
-//       current_user_concerts: getUserConcertts
-//     })
-//   }
-  
-
-
-this.getUserProducts = () => {
-  const currentFans = this.state.all_fans.find(fan => fan.user===this.state.currentFan)
-  const userProducts = this.state.attending_concerts.filter(concerts => concerts.fan_id === currentFans.id)
-  
 this.setState({
-    current_user_concerts: userProducts
-  })
+  value1: getConcertIDs[0],
+  value2: getConcertIDs[1],
+  value3: getConcertIDs[2],
+  value4: getConcertIDs[3],
+  value5: getConcertIDs[4],
+  current_user_concerts: userProducts
+})
+
+ const renderUserConcert1 = this.state.concerts.filter(concert => concert.id === this.state.value1) 
+ const renderUserConcert2 = this.state.concerts.filter(concert => concert.id === this.state.value2) 
+ const renderUserConcert3 = this.state.concerts.filter(concert => concert.id === this.state.value3) 
+ const renderUserConcert4 = this.state.concerts.filter(concert => concert.id === this.state.value4) 
+ const renderUserConcert5 = this.state.concerts.filter(concert => concert.id === this.state.value5) 
+
+
+this.setState({
+  displayLoggedUserConcerts: [...renderUserConcert1, ...renderUserConcert2, ...renderUserConcert3, ...renderUserConcert4, ...renderUserConcert5] })  
 }
 
+
+this.localToken = (userInfo)=>{ //this isn't updating the token at all. The token state stays at its default value
+    if (localStorage.length === 2){
+      this.setState({
+        loggedFan_id: userInfo.id, 
+        token: !this.state.token})
+      }
+    }
+
   
-  }
-  
-
-
-
-
-
-  
- 
-
-
-
 
 
 
   
-
-
-
-
-  
-
+  }
   render() {
 
   
@@ -180,7 +142,8 @@ this.setState({
 <BrowserRouter>
 <Switch>
         <Route path="/profile">
-              <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts}
+              <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts} displayLoggedUserConcerts = {this.state.displayLoggedUserConcerts} 
+                        fanName = {this.state.fanName}
 
                         
                           >
@@ -189,12 +152,7 @@ this.setState({
 
         <Route path="/main">
           <Main concerts = {this.state.concerts} fanName = {this.state.fanName} loggedFan_id = {this.state.loggedFan_id} id= {this.id}
-                fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts}
-            
-            
-            
-            
-            >
+                fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts}>
 
           </Main>
         </Route>

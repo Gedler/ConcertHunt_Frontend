@@ -22,6 +22,7 @@ const displayAllConcerts = concerts.map(concert => {
 
 
 
+
 console.log(displayAllConcerts)
 
 
