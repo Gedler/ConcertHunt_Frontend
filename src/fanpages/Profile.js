@@ -4,8 +4,9 @@ import DeleteConcert from "./DeleteConcert";
 import UserConcertCard from "./UserConcertCard";
 import { useState } from "react";
 
-function Profile({loggedFan_id, attending_concerts, displayLoggedUserConcerts, fanName}) {
-
+function Profile({loggedFan_id, displayLoggedUserConcerts, fanName, attending_concerts}) {
+   
+     
 
 
 let concert1 = {}
@@ -14,11 +15,20 @@ let concert3 = {}
 let concert4 = {}
 let concert5 = {}
 
+
+
+let arr = []
+arr = attending_concerts
+
 concert1 = displayLoggedUserConcerts[0]
 concert2 = displayLoggedUserConcerts[1]
 concert3 = displayLoggedUserConcerts[2]
 concert4 = displayLoggedUserConcerts[3]
 concert5 = displayLoggedUserConcerts[4]
+
+const fetchConcerts = arr.map(concert => {
+    return <UserConcertCard concert1 = {concert1} attending_concerts={attending_concerts} concert2 = {concert2} concert3 = {concert3} concert4 = {concert4} concert5 = {concert5} fanName = {fanName} loggedFan_id = {loggedFan_id}/>
+})
 
 
 
@@ -31,10 +41,9 @@ return (
         <Header></Header>
         <h1>My Profile</h1>
         <AttendNewConcert loggedFan_id = {loggedFan_id}></AttendNewConcert>
-        <DeleteConcert loggedFan_id = {loggedFan_id} attending_concerts={attending_concerts} displayLoggedUserConcerts = {displayLoggedUserConcerts}></DeleteConcert>
+        <DeleteConcert loggedFan_id = {loggedFan_id} attending_concerts={attending_concerts} displayLoggedUserConcerts = {displayLoggedUserConcerts} attending_concerts = {attending_concerts}></DeleteConcert>
         <h1>My Concert List</h1>
-        <UserConcertCard concert1 = {concert1} concert2 = {concert2} concert3 = {concert3} concert4 = {concert4} concert5 = {concert5} fanName = {fanName} loggedFan_id = {loggedFan_id}></UserConcertCard> 
-       
+        <UserConcertCard concert1 = {concert1} attending_concerts={attending_concerts} concert2 = {concert2} concert3 = {concert3} concert4 = {concert4} concert5 = {concert5} fanName = {fanName} loggedFan_id = {loggedFan_id}/>
     
     </div>
 )

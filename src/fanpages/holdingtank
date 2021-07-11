@@ -75,6 +75,12 @@ ArtistCard
    //console.log(getConcerts)
 
 
+{
+            "id": 14,
+            "fan_id": 1,
+            "concert_id": 7
+        }
+
 
 
 

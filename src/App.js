@@ -143,7 +143,7 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
 <Switch>
         <Route path="/profile">
               <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts} displayLoggedUserConcerts = {this.state.displayLoggedUserConcerts} 
-                        fanName = {this.state.fanName}
+                        fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts}
 
                         
                           >
