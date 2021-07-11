@@ -84,3 +84,14 @@ ArtistCard
 
 
 
+Fan Page 
+
+- all concerts they're going to 
+- all artists they're following 
+
+
+
+    // const fanThatLoggedIn = this.state.all_artists.find((artist) => artist. === this.state.fanName)
+    // const userProducts = this.state.followers.filter((follower) => follower.artist_id === fanThatLoggedIn.id)
+    // const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
+    

@@ -29,7 +29,10 @@ export default class App extends Component {
     value3: "",
     value4: "",
     value5: "",
-    displayLoggedUserConcerts: []
+    displayLoggedUserConcerts: [],
+    selectArtistCard: {},
+    artistFollowerCount: "",
+    fanFollowers: []
 
 
   }
@@ -117,6 +120,9 @@ this.setState({
 
 this.setState({
   displayLoggedUserConcerts: [...renderUserConcert1, ...renderUserConcert2, ...renderUserConcert3, ...renderUserConcert4, ...renderUserConcert5] })  
+
+ 
+
 }
 
 
@@ -126,8 +132,32 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
         loggedFan_id: userInfo.id, 
         token: !this.state.token})
       }
+      const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
+    // this.setState(follower_instance)
+
     }
 
+    this.grabArtistObj = (obj) => {
+      this.setState({
+        selectArtistCard: obj.id
+      })
+      const selectedArtist = this.state.all_artists.find((artist) => artist.id === this.state.selectArtistCard)
+      const artistFollowers = this.state.followers.filter((follower) => follower.artist_id === obj.id)
+
+      this.setState({
+        artistFollowerCount: artistFollowers.length
+      })
+      
+      const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
+      console.log(follower_instance)
+
+
+
+    }
+
+
+    // const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
+    
   
 
 
@@ -143,7 +173,7 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
 <Switch>
         <Route path="/profile">
               <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts} displayLoggedUserConcerts = {this.state.displayLoggedUserConcerts} 
-                        fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts}
+                        fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts} 
 
                         
                           >
@@ -162,7 +192,7 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
         </Route>
 
         <Route path="/artists">
-          <ArtistPage all_artists = {this.state.all_artists}></ArtistPage>
+          <ArtistPage all_artists = {this.state.all_artists} getArtistObj = {this.grabArtistObj} artistFollowers = {this.artistFollowers} artistFollowerCount = {this.state.artistFollowerCount}  selectArtistCard = {this.state.selectArtistCard} loggedFan_id = {this.state.loggedFan_id}> </ArtistPage>
         </Route>
         
             
