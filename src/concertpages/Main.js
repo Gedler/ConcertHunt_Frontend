@@ -3,11 +3,11 @@ import AttendNewConcert from "./AttendNewConcert";
 import ConcertCard from "./ConcertCard";
 import { useState } from "react";
 
-function Main ({concerts, fanName, loggedFan_id, id, fans, attending_concerts}){
+function Main ({concerts, fanName, loggedFan_id, id, fans, attending_concerts, grabConcertObj, attendance}){
 
 
 const displayAllConcerts = concerts.map(concert => {
-        return <ConcertCard concerts = {concert} fanName = {fanName} loggedFan_id = {loggedFan_id} fans = {fans} attending_concerts={attending_concerts}/>
+        return <ConcertCard concerts = {concert} fanName = {fanName} loggedFan_id = {loggedFan_id} fans = {fans} attending_concerts={attending_concerts} grabConcertObj = {grabConcertObj} attendance={attendance}/>
 })
 
 

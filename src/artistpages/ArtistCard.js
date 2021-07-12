@@ -1,12 +1,14 @@
 import { Card, Icon, Image } from 'semantic-ui-react'
+import { Button, Modal } from 'semantic-ui-react'
 import ConcertCard from "../concertpages/ConcertCard";
 import {useState} from "react";
 
-function ArtistCard({each_artist, getArtistObj, artistFollowers, artistFollowerCount,  selectArtistCard, loggedFan_id}){
-
-
+function ArtistCard({each_artist, getArtistObj, artistFollowers, artistFollowerCount,  selectArtistCard, loggedFan_id, artistConcerts, concert}){
 
 const {id, name, location, concerts} = each_artist
+
+
+const [open, setOpen] = useState(false)
 
 function handleFollow(e) {
     fetch("http://localhost:3001/follower/new", {
@@ -27,6 +29,7 @@ function handleFollow(e) {
 }
 
 
+
 return (
 
 
@@ -43,11 +46,65 @@ return (
     <Card.Content extra>
       <a>
         <Icon name='user' />
-        10 Friends {artistFollowerCount}
+        Followers: {artistFollowerCount}
         </a>
       <button onClick = {(e)=> handleFollow(e)}>Follow</button>
     </Card.Content>
   </Card>
+  <Modal
+      open={open}
+      onClose={() => setOpen(false)}
+      onOpen={() => setOpen(true)}
+      trigger={<Button>View Profile</Button>}
+    >
+      <Modal.Header>{name} | Followers: {artistFollowerCount}</Modal.Header>
+      <Modal.Content image scrolling>
+        <Image size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+
+        <Modal.Description>
+          
+          <h1>Available Concerts:</h1>
+          <p>
+           {concert}
+          </p>
+
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image
+            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
+            style={{ marginBottom: 10 }}
+          />
+          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+        </Modal.Description>
+      </Modal.Content>
+      <Modal.Actions>
+        <Button onClick={() => setOpen(false)} primary>
+          Proceed <Icon name='chevron right' />
+        </Button>
+      </Modal.Actions>
+    </Modal>
   </div>
 )
 

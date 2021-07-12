@@ -39,12 +39,29 @@ export default class App extends Component {
   followID3: "", 
   followID4: "",
   followID5: "",
+  fanFollowers: [],
 displayLoggedUserFollowingID: [],
 displayLoggedUserConcerts: [],
 displayLoggedUserFollowing: [],
 selectArtistCard: {},
 artistFollowerCount: "",
-fanFollowers: []
+artistConcerts: [],
+selectConcertCard: {},
+selectFanCard: {},
+concertAttendanceCount: "", 
+fanConcert1: "",
+fanConcert2: "",
+fanConcert3: "",
+fanConcert4: "",
+fanConcert5: "",
+displaySelectedFanConcerts: [], 
+fanArtist1: "",
+fanArtist2: "",
+fanArtist3: "",
+fanArtist4: "",
+fanArtist5: "",
+displaySelectedFanArtists: []
+
 
 
   }
@@ -117,7 +134,7 @@ this.setState({fanName: userInfo.fan, loggedFan_id: userInfo.id })
 const fanThatLoggedIn = this.state.all_fans.find((fan) => fan.user===this.state.fanName)
 console.log(fanThatLoggedIn)
 
-// Using the User Object to get different values belonging to that year
+// Using the User Object to get different values belonging to that user
 // AttendingConcert belongs to a fan_id so filter through it 
 // Use the filter to access other keys
 
@@ -207,6 +224,73 @@ this.grabArtistObj = (obj) => {
       
       const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
       console.log(follower_instance)
+
+      const getArtistConcerts = this.state.concerts.filter((concert)=> concert.artist_id === this.state.selectArtistCard)
+      this.setState({artistConcerts: getArtistConcerts})
+
+      
+}
+
+this.grabConcertObj = (obj) => {
+  this.setState({
+        selectConcertCard: obj.id
+  })
+
+  const concert_attendance = this.state.attending_concerts.filter((concert)=> concert.concert_id === this.state.selectConcertCard)
+  this.setState({concertAttendanceCount: concert_attendance.length})
+}
+
+
+this.getFanObj = (obj) => {
+  this.setState({
+        selectFanCard: obj.id
+  })
+
+const selectedFan = this.state.attending_concerts.filter(concert => concert.fan_id === this.state.selectFanCard)
+const selectedFanConcerts = selectedFan.map(concert => concert.concert_id)
+
+this.setState({
+  fanConcert1: selectedFanConcerts[0],
+  fanConcert2: selectedFanConcerts[1],
+  fanConcert3: selectedFanConcerts[2],
+  fanConcert4: selectedFanConcerts[3],
+  fanConcert5: selectedFanConcerts[4]
+})
+
+
+const renderFanConcert1 = this.state.concerts.filter(concert => concert.id === this.state.fanConcert1)
+const renderFanConcert2 = this.state.concerts.filter(concert => concert.id === this.state.fanConcert2)
+const renderFanConcert3 = this.state.concerts.filter(concert => concert.id === this.state.fanConcert3)
+const renderFanConcert4 = this.state.concerts.filter(concert => concert.id === this.state.fanConcert4)
+const renderFanConcert5 = this.state.concerts.filter(concert => concert.id === this.state.fanConcert5)
+
+this.setState({
+    displaySelectedFanConcerts: [...renderFanConcert1, ...renderFanConcert2,...renderFanConcert3, ...renderFanConcert4,...renderFanConcert5]})
+
+
+    const selectedFanFollows = this.state.followers.filter(follower => follower.fan_id  === this.state.selectFanCard)
+    const selectedFanArtistIDs = selectedFanFollows.map(follower => follower.artist_id) 
+
+    this.setState({
+      fanArtist1: selectedFanArtistIDs[0],
+      fanArtist2: selectedFanArtistIDs[1],
+      fanArtist3: selectedFanArtistIDs[2],
+      fanArtist4: selectedFanArtistIDs[3],
+      fanArtist5: selectedFanArtistIDs[4],
+})
+
+const renderFanArtist1 = this.state.all_artists.filter(artist => artist.id === this.state.fanArtist1)
+const renderFanArtist2 = this.state.all_artists.filter(artist => artist.id === this.state.fanArtist2)
+const renderFanArtist3 = this.state.all_artists.filter(artist => artist.id === this.state.fanArtist3)
+const renderFanArtist4 = this.state.all_artists.filter(artist => artist.id === this.state.fanArtist4)
+const renderFanArtist5 = this.state.all_artists.filter(artist => artist.id === this.state.fanArtist5)
+
+
+this.setState({
+  displaySelectedFanArtists: [...renderFanArtist1, ...renderFanArtist2, ...renderFanArtist3, ...renderFanArtist4, ...renderFanArtist5]
+})
+
+
 }
 
 
@@ -237,17 +321,20 @@ this.grabArtistObj = (obj) => {
 
         <Route path="/main">
           <Main concerts = {this.state.concerts} fanName = {this.state.fanName} loggedFan_id = {this.state.loggedFan_id} id= {this.id}
-                fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts}>
-
+                fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts} grabConcertObj={this.grabConcertObj}    
+                attendance = {this.state.concertAttendanceCount}       >
+                    
           </Main>
         </Route>
 
         <Route path="/lounge">
-          <Lounge all_fans = {this.state.all_fans}></Lounge>
+          <Lounge all_fans = {this.state.all_fans} getFanObj={this.getFanObj} displaySelectedFanConcerts = {this.state.displaySelectedFanConcerts} displaySelectedFanArtists = {this.state.displaySelectedFanArtists}   artistFollowerCount = {this.state.artistFollowerCount}></Lounge>
         </Route>
 
         <Route path="/artists">
-          <ArtistPage all_artists = {this.state.all_artists} getArtistObj = {this.grabArtistObj} artistFollowers = {this.artistFollowers} artistFollowerCount = {this.state.artistFollowerCount}  selectArtistCard = {this.state.selectArtistCard} loggedFan_id = {this.state.loggedFan_id}> </ArtistPage>
+          <ArtistPage all_artists = {this.state.all_artists} getArtistObj = {this.grabArtistObj} artistFollowers = {this.artistFollowers} artistFollowerCount = {this.state.artistFollowerCount}  selectArtistCard = {this.state.selectArtistCard} loggedFan_id = {this.state.loggedFan_id}
+                      artistConcerts = {this.state.artistConcerts}
+          > </ArtistPage>
         </Route>
         
             
