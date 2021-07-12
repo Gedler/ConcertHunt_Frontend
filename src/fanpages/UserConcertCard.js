@@ -8,7 +8,6 @@ function UserConcertCard({concert1, concert2, concert3, concert4, concert5, atte
 
                 
 let value1 = ""
-
 let value2 = ""
 let value3 = ""
 let value4 = ""
@@ -19,11 +18,6 @@ value2 = attending_concerts[1]
 value3 = attending_concerts[2]
 value4 = attending_concerts[3] 
 value5 = attending_concerts[4]
-
-
-
-console.log(concert1)
-
 
 
     const description1 = [
@@ -53,18 +47,7 @@ console.log(concert1)
 
 
                   
-                
-
-
-
-
-    
-            
 return (
-
-
-
-        
   <Item.Group>
     <Item>
       <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />

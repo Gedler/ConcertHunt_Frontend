@@ -95,3 +95,13 @@ Fan Page
     // const userProducts = this.state.followers.filter((follower) => follower.artist_id === fanThatLoggedIn.id)
     // const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
     
+follower1: getFollowerID[0], 
+      follower2: getFollowerID[1],
+      follower3: getFollowerID[2],
+      follower4: getFollowerID[3],
+      follower4: getFollowerID[4]
+
+
+
+      {id: 11, artist_id: 1, fan_id: 1}
+artist_id: 1

@@ -9,26 +9,7 @@ function ArtistPage({all_artists, getArtistObj, artistFollowers, artistFollowerC
     })
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        return(
+return(
             <div>
                 <Header></Header>
                 {displayAllArtists}
@@ -37,4 +18,4 @@ function ArtistPage({all_artists, getArtistObj, artistFollowers, artistFollowerC
     }
 
 
-    export default ArtistPage;
+export default ArtistPage;

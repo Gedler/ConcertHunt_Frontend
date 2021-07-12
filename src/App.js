@@ -29,10 +29,22 @@ export default class App extends Component {
     value3: "",
     value4: "",
     value5: "",
-    displayLoggedUserConcerts: [],
-    selectArtistCard: {},
-    artistFollowerCount: "",
-    fanFollowers: []
+  follower1: "",
+  follower2: "",
+  follower3: "",
+  follower4: "",
+  follower5: "",
+  followID1: "",
+  followID2: "",
+  followID3: "", 
+  followID4: "",
+  followID5: "",
+displayLoggedUserFollowingID: [],
+displayLoggedUserConcerts: [],
+displayLoggedUserFollowing: [],
+selectArtistCard: {},
+artistFollowerCount: "",
+fanFollowers: []
 
 
   }
@@ -95,12 +107,31 @@ export default class App extends Component {
 
 this.finishLogin = (userInfo) => {  
 
-this.setState({fanName: userInfo.fan})
+this.setState({fanName: userInfo.fan, loggedFan_id: userInfo.id })
   
+
+
+
+
+// Get the Object of the User That Logged In.
 const fanThatLoggedIn = this.state.all_fans.find((fan) => fan.user===this.state.fanName)
 console.log(fanThatLoggedIn)
+
+// Using the User Object to get different values belonging to that year
+// AttendingConcert belongs to a fan_id so filter through it 
+// Use the filter to access other keys
+
 const userProducts = this.state.attending_concerts.filter((concerts) => concerts.fan_id === fanThatLoggedIn.id)
 const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
+
+
+// Connect Fan With Followers
+const follower_instance1 = this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
+const follower_artistIDs = follower_instance1.map(follower => follower.artist_id) 
+const fan_followID = follower_instance1.map(follower => follower.id)
+const followerartist = this.state.all_artists.find((artist)=> artist.id === follower_artistIDs[0]) // artist tied to fan via followers
+
+
 
 this.setState({
   value1: getConcertIDs[0],
@@ -108,6 +139,16 @@ this.setState({
   value3: getConcertIDs[2],
   value4: getConcertIDs[3],
   value5: getConcertIDs[4],
+  follower1: follower_artistIDs[0], 
+  follower2: follower_artistIDs[1],
+  follower3: follower_artistIDs[2],
+  follower4: follower_artistIDs[3],
+  follower5: follower_artistIDs[4],
+  followID1: fan_followID[0],
+  followID2: fan_followID[1],
+  followID3: fan_followID[2],
+  followID4: fan_followID[3],
+  followID5: fan_followID[4],
   current_user_concerts: userProducts
 })
 
@@ -117,27 +158,43 @@ this.setState({
  const renderUserConcert4 = this.state.concerts.filter(concert => concert.id === this.state.value4) 
  const renderUserConcert5 = this.state.concerts.filter(concert => concert.id === this.state.value5) 
 
+ const renderUserFollow1 = this.state.all_artists.filter(artist => artist.id === this.state.follower1) 
+ const renderUserFollow2 = this.state.all_artists.filter(artist => artist.id  === this.state.follower2) 
+ const renderUserFollow3 = this.state.all_artists.filter(artist => artist.id  === this.state.follower3) 
+ const renderUserFollow4 = this.state.all_artists.filter(artist => artist.id  === this.state.follower4) 
+ const renderUserFollow5 = this.state.all_artists.filter(artist => artist.id  === this.state.follower5) 
 
-this.setState({
-  displayLoggedUserConcerts: [...renderUserConcert1, ...renderUserConcert2, ...renderUserConcert3, ...renderUserConcert4, ...renderUserConcert5] })  
+ const renderUserFollowID1 = this.state.followers.filter(follower => follower.id === this.state.followID1) 
+ const renderUserFollowID2 = this.state.followers.filter(follower => follower.id === this.state.followID2) 
+ const renderUserFollowID3 = this.state.followers.filter(follower => follower.id === this.state.followID3) 
+ const renderUserFollowID4 = this.state.followers.filter(follower => follower.id === this.state.followID4) 
+ const renderUserFollowID5 = this.state.followers.filter(follower => follower.id === this.state.followID5) 
 
- 
+ this.setState({
+  displayLoggedUserConcerts: [...renderUserConcert1, ...renderUserConcert2, ...renderUserConcert3, ...renderUserConcert4, ...renderUserConcert5],
+  displayLoggedUserFollowing: [...renderUserFollow1, ...renderUserFollow2, ...renderUserFollow3, ...renderUserFollow4, ...renderUserFollow5], 
+  displayLoggedUserFollowingID: [...renderUserFollowID1, ...renderUserFollowID2, ...renderUserFollowID3, ...renderUserFollowID4, ...renderUserFollowID5]})  
 
+
+
+
+  const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
+      const getFollowerID = follower_instance.map(follower => follower.id)
+      console.log("This is the follower ID", getFollowerID)
+    this.setState({
+      fanFollowers: follower_instance})
 }
 
-
-this.localToken = (userInfo)=>{ //this isn't updating the token at all. The token state stays at its default value
+this.localToken = (userInfo)=>{ 
     if (localStorage.length === 2){
       this.setState({
         loggedFan_id: userInfo.id, 
-        token: !this.state.token})
-      }
-      const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
-    // this.setState(follower_instance)
+        token: !this.state.token})}
+}
 
-    }
+    
 
-    this.grabArtistObj = (obj) => {
+this.grabArtistObj = (obj) => {
       this.setState({
         selectArtistCard: obj.id
       })
@@ -150,13 +207,10 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
       
       const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
       console.log(follower_instance)
+}
 
 
-
-    }
-
-
-    // const getConcertIDs = userProducts.map(concert => concert.concert_id) //this has the id of all concerts
+    
     
   
 
@@ -173,7 +227,8 @@ this.localToken = (userInfo)=>{ //this isn't updating the token at all. The toke
 <Switch>
         <Route path="/profile">
               <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts} displayLoggedUserConcerts = {this.state.displayLoggedUserConcerts} 
-                        fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts} 
+                        fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts} fanFollowers = {this.state.fanFollowers} displayLoggedUserFollowing={this.state.displayLoggedUserFollowing}
+                        displayLoggedUserFollowingID={this.state.displayLoggedUserFollowingID}
 
                         
                           >
