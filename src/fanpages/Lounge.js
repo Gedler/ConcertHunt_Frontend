@@ -3,9 +3,10 @@ import FanCard from "./FanCard";
 import { Button, Card, Image } from 'semantic-ui-react'
 import FanConcerts from "./FanConcerts";
 import FanArtists from "./FanArtists";
+import ChatBox from "./Chatbox";
 
 
-function Lounge({all_fans, getFanObj, displaySelectedFanConcerts, displaySelectedFanArtists, artistFollowerCount}){
+function Lounge({all_fans, getFanObj, displaySelectedFanConcerts, displaySelectedFanArtists, artistFollowerCount, loggedFan_id}){
 
     const renderFanConcerts = displaySelectedFanConcerts.map(concert => {return <FanConcerts concert = {concert} />})
     const renderFanArtists = displaySelectedFanArtists.map(each_artist => {return <FanArtists each_artist = {each_artist} artistFollowerCount = {artistFollowerCount}/>})
@@ -22,6 +23,7 @@ function Lounge({all_fans, getFanObj, displaySelectedFanConcerts, displaySelecte
         <div>
             <Header></Header>
             {displayAllFans}
+            <ChatBox loggedFan_id = {loggedFan_id}></ChatBox>
         </div>
     )
 }

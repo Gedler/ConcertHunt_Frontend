@@ -14,6 +14,7 @@ export default class App extends Component {
  
   state = {
 
+    header: "Concert Hunt",
     loggedFan_id: "", 
     fanName: "",
     all_fans: [],
@@ -64,19 +65,12 @@ displaySelectedFanArtists: []
 
 
 
+
   }
 
   componentDidMount(){
 
-    const object1 = {
-      a: 'somestring',
-      b: 42
-    };
-    
-    for (const [key, value] of Object.entries(object1)) {
-      console.log(`${key}: ${value}`);
-    }
-
+  
   fetch("http://localhost:3001/concerts", {
       method: "GET",
       headers: {Authorization: `Bearer ${localStorage.token}`}
@@ -125,6 +119,8 @@ displaySelectedFanArtists: []
 this.finishLogin = (userInfo) => {  
 
 this.setState({fanName: userInfo.fan, loggedFan_id: userInfo.id })
+
+const name = this.state.fanName
   
 
 
@@ -151,6 +147,7 @@ const followerartist = this.state.all_artists.find((artist)=> artist.id === foll
 
 
 this.setState({
+  header: `Welcome Back, ${name}`,
   value1: getConcertIDs[0],
   value2: getConcertIDs[1],
   value3: getConcertIDs[2],
@@ -196,11 +193,11 @@ this.setState({
 
 
   const follower_instance= this.state.followers.filter(follower => follower.fan_id  === this.state.loggedFan_id)
-      const getFollowerID = follower_instance.map(follower => follower.id)
-      console.log("This is the follower ID", getFollowerID)
-    this.setState({
+  const getFollowerID = follower_instance.map(follower => follower.id)
+  console.log("This is the follower ID", getFollowerID)
+  this.setState({
       fanFollowers: follower_instance})
-}
+    }
 
 this.localToken = (userInfo)=>{ 
     if (localStorage.length === 2){
@@ -328,7 +325,7 @@ this.setState({
         </Route>
 
         <Route path="/lounge">
-          <Lounge all_fans = {this.state.all_fans} getFanObj={this.getFanObj} displaySelectedFanConcerts = {this.state.displaySelectedFanConcerts} displaySelectedFanArtists = {this.state.displaySelectedFanArtists}   artistFollowerCount = {this.state.artistFollowerCount}></Lounge>
+          <Lounge all_fans = {this.state.all_fans} getFanObj={this.getFanObj} displaySelectedFanConcerts = {this.state.displaySelectedFanConcerts} displaySelectedFanArtists = {this.state.displaySelectedFanArtists}   artistFollowerCount = {this.state.artistFollowerCount} loggedFan_id = {this.state.loggedFan_id}></Lounge>
         </Route>
 
         <Route path="/artists">
@@ -349,7 +346,9 @@ this.setState({
                       token={this.state.token}
                       loggedInFan={this.state.currentFan}
                     userInfo={this.getUserProducts}
-                    localToken={this.localToken}>
+                    localToken={this.localToken}
+                    fanName = {this.state.fanName}
+                    header= {this.state.header}>
       </Login>
       </Route>
 </Switch>
