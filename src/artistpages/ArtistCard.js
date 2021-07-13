@@ -9,8 +9,12 @@ const {id, name, location, concerts} = each_artist
 
 
 const [open, setOpen] = useState(false)
+const [isClicked, setIsClicked] = useState(false)
 
 function handleFollow(e) {
+
+  setIsClicked(!isClicked)
+
     fetch("http://localhost:3001/follower/new", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
@@ -46,9 +50,12 @@ return (
     <Card.Content extra>
       <a>
         <Icon name='user' />
-        Followers: {artistFollowerCount}
+        
         </a>
       <button onClick = {(e)=> handleFollow(e)}>Follow</button>
+      {isClicked ? <p>You're now following this artist!</p>: null   }
+
+        
     </Card.Content>
   </Card>
   <Modal

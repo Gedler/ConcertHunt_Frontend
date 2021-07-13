@@ -1,4 +1,4 @@
-import UserConcertCard from "../fanpages/UserConcertCard";
+
 import Header from "../Header";
 import ArtistCard from "./ArtistCard";
 import ArtistConcertCard from "./ArtistConcertCard";

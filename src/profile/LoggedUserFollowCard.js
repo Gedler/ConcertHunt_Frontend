@@ -3,16 +3,14 @@ import { Button, Modal } from 'semantic-ui-react'
 import ConcertCard from "../concertpages/ConcertCard";
 import {useState} from "react";
 
-function FanArtists({each_artist,  artistFollowerCount,  selectArtistCard,   concert}){
-
-  //All artists that the fan follows
+function LoggedUserFollowCard({each_artist,  artistFollowerCount,  selectArtistCard,   concert}){
 
 const {id, name, location, } = each_artist
 
 return (
 
 
-
+<div>
   <Card className = "card" >
     <Image src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' wrapped ui={false} />
     <Card.Content>
@@ -29,8 +27,9 @@ return (
         </a>
     </Card.Content>
   </Card>
+  </div>
 )
 
 }
 
-export default FanArtists;
+export default LoggedUserFollowCard;

@@ -3,10 +3,6 @@ import React, {useState, useEffect} from "react"
 import styled from 'styled-components'
 import { Button, Comment, Form } from 'semantic-ui-react'
 
-
-
-
-
 const ChatListDiv = styled.div` 
     height: 300px;
     overflow: auto;
@@ -14,9 +10,8 @@ const ChatListDiv = styled.div`
     background-color: whitesmoke;
     `
    
+function ProfileChatBox({loggedFan_id, fanName}){
 
-
-function ChatBox({loggedFan_id}){
     
     const [userInput, setuserInput] = useState("")
     const [chat, setChat] = useState([])
@@ -34,15 +29,17 @@ function ChatBox({loggedFan_id}){
 
 
 
-    function sendNewChat(e){ 
-        e.preventDefault();
-        let newChatSubmit = {
-            fan_id: loggedFan_id,
-            comment: userInput
+function sendNewChat(e){ 
+    e.preventDefault();
+    let newChatSubmit = {
+    fan_id: loggedFan_id,
+    comment: userInput,
+    fan_name: fanName
         }
-        console.log(newChatSubmit)
-        fetch("http://localhost:3001/chatbox/new", {
-            method: "POST",
+    console.log(newChatSubmit)
+
+ fetch("http://localhost:3001/chatbox/new", {
+             method: "POST",
             headers: {"content-type": "application/json"},
             body: JSON.stringify(newChatSubmit)
         })
@@ -54,7 +51,7 @@ function ChatBox({loggedFan_id}){
         setuserInput("")  
     }
 
-    function deleteComment(e) {
+function deleteComment(e) {
         const id = e.target.name
 
         fetch(`http://localhost:3001/chatbox/${id}`, {
@@ -65,7 +62,7 @@ function ChatBox({loggedFan_id}){
             return comment.id !== parseInt(id)
         })
 
-        setChat(filteredComments)
+        setChat(filteredComments)  
 
     }
 
@@ -75,7 +72,7 @@ function ChatBox({loggedFan_id}){
 
             <Comment key= {comments.id}>
                 <Comment.Content>
-                    <Comment.Text>{comments.comment}</Comment.Text>
+                    <Comment.Text>{comments.fan_name}:{comments.comment}</Comment.Text>
                     <Button onClick={ deleteComment } name={ comments.id } labelPosition="right">X</Button>
                 </Comment.Content>
             </Comment>
@@ -96,4 +93,4 @@ function ChatBox({loggedFan_id}){
 }
 
 
-export default ChatBox;
+export default ProfileChatBox;

@@ -1,7 +1,8 @@
 import { Button, Card, Image, Icon, Modal } from 'semantic-ui-react'
 import {useState} from 'react'
+import PrivateChatBox from './PrivateChatbox'
 
-function FanCard({all_fans, getFanObj, renderFanConcerts, renderFanArtists}) {
+function FanCard({all_fans, getFanObj, renderFanConcerts, renderFanArtists, selectFanCard, fanName}) {
     
     const {user, location} = all_fans
 
@@ -46,6 +47,7 @@ return (
            <p>
              {renderFanArtists}
            </p>
+           <PrivateChatBox selectFanCard= {selectFanCard} fanName = {fanName}></PrivateChatBox>
 
           <Image
             src='https://react.semantic-ui.com/images/wireframe/paragraph.png'

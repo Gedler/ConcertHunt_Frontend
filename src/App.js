@@ -1,9 +1,9 @@
 import './App.css';
-import Login from "./fanpages/Login"
+import Login from "./Login"
 import { useHistory } from 'react-router-dom';
 import React, { Component } from 'react'
 import {BrowserRouter,Route, Switch, Link} from 'react-router-dom';
-import Profile from './fanpages/Profile';
+import Profile from './profile/Profile';
 import Main from './concertpages/Main';
 import Lounge from './fanpages/Lounge';
 import ArtistPage from './artistpages/ArtistPage';
@@ -22,6 +22,7 @@ export default class App extends Component {
     all_artists: [],
     current_user_concerts: [],
     attending_concerts: [],
+    concert_attending_id: "",
     followers: [],
     token: false, 
     grabIds: {},
@@ -235,6 +236,10 @@ this.grabConcertObj = (obj) => {
 
   const concert_attendance = this.state.attending_concerts.filter((concert)=> concert.concert_id === this.state.selectConcertCard)
   this.setState({concertAttendanceCount: concert_attendance.length})
+
+//let getAttendingConcert = this.state.attending_concerts.find((concert)=> concert.concert_id === this.state.selectConcertCard && concert.fan_id === this.state.loggedFan_id)
+//let getAttendingConcertID = getAttendingConcert.id
+
 }
 
 
@@ -290,6 +295,20 @@ this.setState({
 
 }
 
+this.getSelectedLoggedUserConcert = (e)=> {
+
+  let concert_id = e.id
+
+  let getAttendingConcert = this.state.attending_concerts.find((concert)=> concert.concert_id === concert_id && concert.fan_id === this.state.loggedFan_id)
+  let getAttendingConcertID = getAttendingConcert.id
+
+  this.setState({
+    
+    concert_attending_id: getAttendingConcertID
+  })
+
+}
+
 
     
     
@@ -309,8 +328,8 @@ this.setState({
         <Route path="/profile">
               <Profile loggedFan_id = {this.state.loggedFan_id} attending_concerts= {this.state.attending_concerts} displayLoggedUserConcerts = {this.state.displayLoggedUserConcerts} 
                         fanName = {this.state.fanName} attending_concerts={this.state.current_user_concerts} fanFollowers = {this.state.fanFollowers} displayLoggedUserFollowing={this.state.displayLoggedUserFollowing}
-                        displayLoggedUserFollowingID={this.state.displayLoggedUserFollowingID}
-
+                        displayLoggedUserFollowingID={this.state.displayLoggedUserFollowingID} artistFollowerCount= {this.state.artistFollowerCount} getSelectedLoggedUserConcert={this.getSelectedLoggedUserConcert}
+                        concert_attending_id = {this.state.concert_attending_id}
                         
                           >
               </Profile>
@@ -319,13 +338,13 @@ this.setState({
         <Route path="/main">
           <Main concerts = {this.state.concerts} fanName = {this.state.fanName} loggedFan_id = {this.state.loggedFan_id} id= {this.id}
                 fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts} grabConcertObj={this.grabConcertObj}    
-                attendance = {this.state.concertAttendanceCount}       >
+                attendance = {this.state.concertAttendanceCount}  selectConcertCard = {this.state.selectConcertCard}     >
                     
           </Main>
         </Route>
 
         <Route path="/lounge">
-          <Lounge all_fans = {this.state.all_fans} getFanObj={this.getFanObj} displaySelectedFanConcerts = {this.state.displaySelectedFanConcerts} displaySelectedFanArtists = {this.state.displaySelectedFanArtists}   artistFollowerCount = {this.state.artistFollowerCount} loggedFan_id = {this.state.loggedFan_id}></Lounge>
+          <Lounge all_fans = {this.state.all_fans} getFanObj={this.getFanObj} displaySelectedFanConcerts = {this.state.displaySelectedFanConcerts} displaySelectedFanArtists = {this.state.displaySelectedFanArtists}   artistFollowerCount = {this.state.artistFollowerCount} loggedFan_id = {this.state.loggedFan_id} fanName= {this.state.fanName} selectFanCard={this.state.selectFanCard} ></Lounge>
         </Route>
 
         <Route path="/artists">

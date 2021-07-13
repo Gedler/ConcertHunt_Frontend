@@ -6,7 +6,7 @@ import AttendNewConcert from './AttendNewConcert';
 
 
 
-function ConcertCard({concerts, fanName, currentFan, transferConcertID, grabConcertObj, attendance}){ 
+function ConcertCard({concerts, fanName, currentFan, transferConcertID, grabConcertObj, attendance, selectConcertCard, loggedFan_id}){ 
 
     const {id, venue, location, date,  price, people_attending, fan_usernames, fan_locations, attending_concerts } = concerts
   
@@ -66,9 +66,9 @@ return (
     open={secondOpen}
     size='large'
   >
-    <Modal.Header>We hope to see you soon!</Modal.Header>
+    <Modal.Header>Would you like to go to this concert?</Modal.Header>
     <Modal.Content>
-      <p>Want to add this concert to your list? Simply type the concert ID on the form at the bottom of this page :)</p>
+      <AttendNewConcert selectConcertCard={selectConcertCard} loggedFan_id={loggedFan_id} ></AttendNewConcert>
     </Modal.Content>
     <Modal.Actions>
       <Button

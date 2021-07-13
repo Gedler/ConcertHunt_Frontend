@@ -2,6 +2,8 @@ import { Item } from 'semantic-ui-react'
 
 function FanConcerts({concert}){
 
+  // All concerts that the fan is attending
+
     const {id, venue, location, date,  price} = concert
   
    

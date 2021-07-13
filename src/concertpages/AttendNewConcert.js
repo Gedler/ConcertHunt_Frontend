@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-function AttendNewConcert({loggedFan_id}) {
+function AttendNewConcert({loggedFan_id, renderUserFollowing, selectConcertCard}) {
 
     console.log(loggedFan_id)
 
     const [getConcert_id, setGetConcert_id] = useState("Enter the ID of Concert")
+    const [isClicked, setIsClicked] = useState(false)
 
 
 
@@ -17,13 +18,15 @@ function getUserInput(e) {
 function handleAttendConcert(e) {
         e.preventDefault()
 
+        setIsClicked(!isClicked)
+
       
         fetch(`http://localhost:3001/attendingconcert/new`, {
             method: "POST", 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                     fan_id: loggedFan_id, 
-                    concert_id: getConcert_id
+                    concert_id: selectConcertCard
             })
         })
     
@@ -41,12 +44,12 @@ function handleAttendConcert(e) {
 
 return (
     <div>
-        <form onSubmit= {e=> handleAttendConcert(e)}>
-            <label>Add Concert to your List</label>
-            <input type="text" placeholder = "Enter the ID of Concert" onChange={e=> getUserInput(e)}/>
-            <input type="submit"Attend This Concert/>
-            
-        </form>
+
+        <button  onClick = {handleAttendConcert} >Yes</button>
+
+            {isClicked ? <p>This Concert has been added to your list!</p>: null   }
+
+        
 
     </div>
 

@@ -105,3 +105,14 @@ follower1: getFollowerID[0],
 
       {id: 11, artist_id: 1, fan_id: 1}
 artist_id: 1
+
+
+<p>Want to add this concert to your list? Simply type the concert ID on the form at the bottom of this page :)</p>
+
+
+<form onSubmit= {e=> handleAttendConcert(e)}>
+            <label>Add Concert to your List</label>
+            <input type="text" placeholder = "Enter the ID of Concert" onChange={e=> getUserInput(e)}/>
+            <input type="submit"Attend This Concert/>
+            
+        </form>

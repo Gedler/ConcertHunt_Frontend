@@ -1,14 +1,16 @@
 import AttendNewConcert from "../concertpages/AttendNewConcert";
 import Header from "../Header";
 import DeleteConcert from "./DeleteConcert";
-import UserConcertCard from "./UserConcertCard";
-import { useState } from "react";
-import Followers from "./Followers";
 
-function Profile({loggedFan_id, displayLoggedUserConcerts, fanName, attending_concerts, fanFollowers, displayLoggedUserFollowing, displayLoggedUserFollowingID}) {
+import { useState } from "react";
+
+import LoggedUserFollowCard from "./LoggedUserFollowCard";
+import LoggedUserConcertCard from "./LoggedUserConcertCard";
+import ProfileChatBox from "./ProfileChatbox";
+
+function Profile({loggedFan_id, displayLoggedUserConcerts, fanName, attending_concerts, fanFollowers, displayLoggedUserFollowing, displayLoggedUserFollowingID, artistFollowerCount, getSelectedLoggedUserConcert, concert_attending_id }) {
    
 
-     
 let concert1 = {}
 let concert2 = {}
 let concert3 = {}
@@ -45,19 +47,22 @@ follower3ID = displayLoggedUserFollowingID[2]
 follower4ID = displayLoggedUserFollowingID[3]
 follower5ID = displayLoggedUserFollowingID[4]
 
+
+
+const renderUserFollowing = displayLoggedUserFollowing.map(each_artist => {return <LoggedUserFollowCard each_artist = {each_artist} artistFollowerCount = {artistFollowerCount}/>}) 
+const renderUserConcerts = displayLoggedUserConcerts.map(concert => {return <LoggedUserConcertCard concert = {concert} getSelectedLoggedUserConcert = {getSelectedLoggedUserConcert} concert_attending_id = {concert_attending_id}/>})
+
 return (
     <div>
         
         <Header></Header>
-        <h1>My Profile</h1>
-        <AttendNewConcert loggedFan_id = {loggedFan_id}></AttendNewConcert>
-        <DeleteConcert loggedFan_id = {loggedFan_id} attending_concerts={attending_concerts} displayLoggedUserConcerts = {displayLoggedUserConcerts} attending_concerts = {attending_concerts}></DeleteConcert>
+        <h4>My Profile</h4>
         <h1>My Concert List</h1>
-        <UserConcertCard concert1 = {concert1} attending_concerts={attending_concerts} concert2 = {concert2} concert3 = {concert3} concert4 = {concert4} concert5 = {concert5} fanName = {fanName} loggedFan_id = {loggedFan_id}/>
-        <Followers follower1 = {follower1} follower2 = {follower2} follower3 = {follower3} follower4 = {follower4} follower5 = {follower5} displayLoggedUserFollowingID={displayLoggedUserFollowingID}
-        follower1ID = {follower1ID} follower2ID = {follower2ID} follower3ID = {follower3ID} follower4ID = {follower4ID} follower5ID = {follower5ID}/>
-       
-    
+        {renderUserConcerts}
+        <h1>My Artist List</h1>
+        {renderUserFollowing}
+        <h1>Your Live Chat</h1>
+        <ProfileChatBox loggedFan_id = {loggedFan_id} fanName = {fanName}></ProfileChatBox> 
     </div>
 )
 }
