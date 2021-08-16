@@ -1,8 +1,15 @@
 //import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import React, { Component } from 'react'
+import loginImg from "./login.svg";
+import './App.css';
+
+
 
 export default class App extends Component {
+    constructor(props) {
+      super(props);
+    }
 
     state = {
         isClicked: false,
@@ -13,6 +20,8 @@ export default class App extends Component {
 
 
     componentDidMount(){
+
+
 
 const name = 
 
@@ -55,7 +64,11 @@ this.handleRegister=(e)=> {
                 },
         body: JSON.stringify({
             user: e.target[0].value,
-            password: e.target[1].value
+            password: e.target[1].value,
+            location: e.target[2].value,
+            pronouns: e.target[3].value,
+            image: e.target[4].value
+
         })
     })
     
@@ -79,33 +92,40 @@ this.handleRegister=(e)=> {
 } 
 render() {
 return (
-    <div>
-        <h1>{this.props.header}</h1>
-       
-        <form onSubmit={(e)=> this.handleLogin(e)}>
-            <label>Username</label>
-            <input name="username" type="text"/>
-            <label>Password</label>
-            <input name="password" type="text"/>
-            <input type="submit"/>
-        </form> 
-        <button onClick = {(e)=> this.setState({isClicked:true})}>New User?</button>
-        {this.state.isClicked ?  
-        <form onSubmit={(e)=> this.handleRegister(e)}>
-            <h1>Register</h1>
-            <label>Username</label>
-            <input name="username" type="text"/>
-            <label>Password</label>
-            <input name="password" type="text"/>
-            <label>Location</label>
-            <input name="location" type="text"/>
-            <input onClicked = {(e)=> this.setState({isClicked:false})}type="submit"/> 
-        </form> : null}
-        {this.state.isRegistered ? <h3>Welcome To Concert Hunt, please login :)</h3> : null}
-        <Link to= "/profile" ><button>Enter Concert Hunt</button></Link>
-        </div>
+   
+  <div className= "form1">
+  <h1 className = "header">{this.props.header}</h1>
+  {this.state.token ? <Link to= "/profile" ><button>Enter Concert Hunt</button></Link>: null}
+ 
+  <form className= "form-login" onSubmit={(e)=> this.handleLogin(e)}>
+      <label>Username</label>
+      <input name="username" type="text"/>
+      <label>Password</label>
+      <input name="password" type="text"/>
+      <input type="submit" value="Login"/>
+  </form> 
+  <div classname= "new-user">
+  <button onClick = {(e)=> this.setState({isClicked:true})}>New User?</button>
+  {this.state.isClicked ?  
+  <form className = "register" onSubmit={(e)=> this.handleRegister(e)}>
+      <h1 className="register-text">Register</h1>
+      <label>Username</label>
+      <input name="username" type="text"/>
+      <label>Password</label>
+      <input name="password" type="text"/>
+      <label>Location</label>
+      <input name="location" type="text"/>
+      <label>Pronouns</label>
+      <input name="pronouns" type="text"/>
+      <label>Image</label>
+      <input name="image" type="text"/>
+      <button onClicked = {(e)=> this.setState({isClicked:false})}type="submit">Sign Up</button>
+  </form> : null}
+  </div>
+  {this.state.isRegistered ? <h3>Welcome To Concert Hunt, please login :)</h3> : null}
+  <Link to= "/profile" ><button>Enter Concert Hunt</button></Link>
+  </div>
 
-        
     
 
 

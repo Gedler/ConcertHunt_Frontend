@@ -1,0 +1,37 @@
+.fans {
+    display:flex;
+    align-content: center;
+    overflow: scroll;
+    margin-bottom: 20px;
+    padding: 50px;
+    background-color: gold;
+    
+}
+
+.chat {
+    align-content: center;
+    margin: 50px;
+    width: 100%;
+    margin-left: 420px;
+    padding: 0px;
+    display: block;
+
+
+   
+
+
+ 
+}
+
+
+.entire-page {
+    height: 200px;
+    background-color: gold;
+}
+
+.lounge-chat {
+    font-size: 80px;
+    margin-right: 800px;
+    font-family: monospace;
+    color:gold
+}

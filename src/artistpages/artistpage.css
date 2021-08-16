@@ -1,0 +1,35 @@
+.artists {
+    display:inline-block;
+    align-content: center;
+    overflow: scroll;
+    margin: 20px;
+    padding: 20px;
+  
+ 
+
+
+}
+
+
+
+
+.ui.button {
+
+    margin: 100px;
+
+
+}
+
+
+
+.sub-header {
+    padding: 59px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 60px;
+    color: gold;
+    margin-right: 200px;
+}
+
+.sub-page {
+    background-color: blueviolet;
+}

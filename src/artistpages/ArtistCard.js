@@ -3,9 +3,9 @@ import { Button, Modal } from 'semantic-ui-react'
 import ConcertCard from "../concertpages/ConcertCard";
 import {useState} from "react";
 
-function ArtistCard({each_artist, getArtistObj, artistFollowers, artistFollowerCount,  selectArtistCard, loggedFan_id, artistConcerts, concert}){
+function ArtistCard({each_artist, getArtistObj, artistFollowers, artistFollowerCount,  selectArtistCard, loggedFan_id, artistConcerts, concert, updateFollow}){
 
-const {id, name, location, concerts} = each_artist
+const {id, name, location, image, concerts} = each_artist
 
 
 const [open, setOpen] = useState(false)
@@ -22,6 +22,7 @@ function handleFollow(e) {
               artist_id: selectArtistCard, 
               fan_id: loggedFan_id
       })
+      
 
     })
 
@@ -39,7 +40,7 @@ return (
 
 <div onMouseOver = {() => getArtistObj(each_artist)}>
   <Card className = "card" >
-    <Image src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' wrapped ui={false} />
+    <Image src= {image} wrapped ui={false} />
     <Card.Content>
       <Card.Header>{name}</Card.Header>
       <Card.Meta>Joined in 2016</Card.Meta>
@@ -66,7 +67,7 @@ return (
     >
       <Modal.Header>{name} | Followers: {artistFollowerCount}</Modal.Header>
       <Modal.Content image scrolling>
-        <Image size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+        <Image size='medium' src= {image} wrapped />
 
         <Modal.Description>
           
@@ -74,36 +75,6 @@ return (
           <p>
            {concert}
           </p>
-
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>

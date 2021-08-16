@@ -51,7 +51,7 @@ function MainChat({loggedFan_id, fanName}){
     function deleteComment(e) {
         const id = e.target.name
 
-        fetch(`http://localhost:3001/chatbox/${id}`, {
+        fetch(`http://localhost:3001/chats/${id}`, {
             method: "DELETE",
         })
 
@@ -67,12 +67,15 @@ function MainChat({loggedFan_id, fanName}){
         
         return ( 
 
+            <div className="top-chat">
+
             <Comment key= {comments.id}>
                 <Comment.Content>
                     <Comment.Text>{comments.fan_name}:{comments.comment}</Comment.Text>
                     <Button onClick={ deleteComment } name={ comments.id } labelPosition="right">X</Button>
                 </Comment.Content>
             </Comment>
+            </div>
         )
     })
     return ( 

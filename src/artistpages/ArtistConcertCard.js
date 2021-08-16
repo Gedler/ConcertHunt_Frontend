@@ -4,7 +4,7 @@ import { useState } from "react";
 
 function ArtistConcertCard({concert}){
 
-    const {id, venue, location, date,  price} = concert
+    const {id, venue, location, image, date,  price} = concert
   
    
     const description = [
@@ -15,7 +15,7 @@ function ArtistConcertCard({concert}){
 return (
 <Item.Group>
     <Item>
-      <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+      <Item.Image size='small' src={image} />
 
       <Item.Content>
         <Item.Header as='a'>Concert #{id}</Item.Header>

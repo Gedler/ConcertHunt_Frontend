@@ -1,5 +1,4 @@
 import './App.css';
-import Login from "./Login"
 import { useHistory } from 'react-router-dom';
 import React, { Component } from 'react'
 import {BrowserRouter,Route, Switch, Link} from 'react-router-dom';
@@ -7,6 +6,7 @@ import Profile from './profile/Profile';
 import Main from './concertpages/Main';
 import Lounge from './fanpages/Lounge';
 import ArtistPage from './artistpages/ArtistPage';
+import Login from "./Login";
 
 
 export default class App extends Component {
@@ -48,7 +48,8 @@ displayLoggedUserFollowing: [],
 selectArtistCard: {},
 artistFollowerCount: "",
 artistConcerts: [],
-selectConcertCard: {},
+selectConcertCard: {}, 
+selectConcerCardInfo: {},
 selectFanCard: {},
 concertAttendanceCount: "", 
 fanConcert1: "",
@@ -148,7 +149,7 @@ const followerartist = this.state.all_artists.find((artist)=> artist.id === foll
 
 
 this.setState({
-  header: `Welcome Back, ${name}`,
+  header: `Welcome Back, ${name} :)`,
   value1: getConcertIDs[0],
   value2: getConcertIDs[1],
   value3: getConcertIDs[2],
@@ -231,15 +232,21 @@ this.grabArtistObj = (obj) => {
 
 this.grabConcertObj = (obj) => {
   this.setState({
-        selectConcertCard: obj.id
+        selectConcertCard: obj.id,
+        selectConcerCardInfo: obj.artist_id
   })
 
   const concert_attendance = this.state.attending_concerts.filter((concert)=> concert.concert_id === this.state.selectConcertCard)
   this.setState({concertAttendanceCount: concert_attendance.length})
 
-//let getAttendingConcert = this.state.attending_concerts.find((concert)=> concert.concert_id === this.state.selectConcertCard && concert.fan_id === this.state.loggedFan_id)
-//let getAttendingConcertID = getAttendingConcert.id
+   const findArtist = this.state.all_artists.filter(artist => artist.id = this.state.selectConcerCardInfo )
+   console.log(findArtist)
+   //const  getArtistName = findArtist.name 
 
+    this.setState({
+      concert_page_artist_name: findArtist.name
+    })
+     
 }
 
 
@@ -338,7 +345,7 @@ this.getSelectedLoggedUserConcert = (e)=> {
         <Route path="/main">
           <Main concerts = {this.state.concerts} fanName = {this.state.fanName} loggedFan_id = {this.state.loggedFan_id} id= {this.id}
                 fans = {this.state.all_fans} attending_concerts={this.state.attending_concerts} grabConcertObj={this.grabConcertObj}    
-                attendance = {this.state.concertAttendanceCount}  selectConcertCard = {this.state.selectConcertCard}     >
+                attendance = {this.state.concertAttendanceCount}  selectConcertCard = {this.state.selectConcertCard} selectConcerCardInfo = {this.state.selectConcerCardInfo} concert_page_artist_name={this.state.concert_page_artist_name}    >
                     
           </Main>
         </Route>

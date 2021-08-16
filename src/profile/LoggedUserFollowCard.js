@@ -5,14 +5,14 @@ import {useState} from "react";
 
 function LoggedUserFollowCard({each_artist,  artistFollowerCount,  selectArtistCard,   concert}){
 
-const {id, name, location, } = each_artist
+const {id, name, location, image} = each_artist
 
 return (
 
 
 <div>
   <Card className = "card" >
-    <Image src='https://react.semantic-ui.com/images/avatar/large/daniel.jpg' wrapped ui={false} />
+    <Image src= {image} wrapped ui={false} />
     <Card.Content>
       <Card.Header>{name}</Card.Header>
       <Card.Meta>Joined in 2016</Card.Meta>

@@ -4,7 +4,7 @@ import PrivateChatBox from './PrivateChatbox'
 
 function FanCard({all_fans, getFanObj, renderFanConcerts, renderFanArtists, selectFanCard, fanName}) {
     
-    const {user, location} = all_fans
+    const {user, location, image, pronouns} = all_fans
 
     const [open, setOpen] = useState(false)
 
@@ -16,7 +16,7 @@ return (
         <Image
           floated='right'
           size='mini'
-          src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
+          src={image}
         />
         <Card.Header>{user}</Card.Header>
         <Card.Meta></Card.Meta>
@@ -26,7 +26,9 @@ return (
       </Card.Content>
       <Card.Content extra>
         <div className='ui two buttons'>
-         
+        <Button basic color='green'>
+            {pronouns}
+          </Button>
         </div>
       </Card.Content>
     </Card>
@@ -36,48 +38,35 @@ return (
       onOpen={() => setOpen(true)}
       trigger={<Button>View Profile</Button>}
     >
-      <Modal.Header>Profile Picture</Modal.Header>
+      <Modal.Header>{user}'s' Profile</Modal.Header>
       <Modal.Content image scrolling>
-        <Image size='medium' src='https://react.semantic-ui.com/images/wireframe/image.png' wrapped />
+        <Image size='medium' src={image} wrapped />
 
         <Modal.Description>
-          <p>
+       
+          <h1 >
+            {user}'s Concerts:
+            </h1>
+          
+            <div className="concerts">
+            <p>
             {renderFanConcerts}
            </p>
-           <p>
+           </div>
+
+           <h1>
+
+             {user}'s Artist List:
+             </h1>
+             
+             <p>
              {renderFanArtists}
            </p>
+           <h1>{user}'s Live Chat</h1>
            <PrivateChatBox selectFanCard= {selectFanCard} fanName = {fanName}></PrivateChatBox>
 
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image
-            src='https://react.semantic-ui.com/images/wireframe/paragraph.png'
-            style={{ marginBottom: 10 }}
-          />
-          <Image src='https://react.semantic-ui.com/images/wireframe/paragraph.png' />
+
+          
         </Modal.Description>
       </Modal.Content>
       <Modal.Actions>

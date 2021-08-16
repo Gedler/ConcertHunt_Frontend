@@ -82,7 +82,7 @@ function PrivateChatBox({loggedFan_id, fanName, selectFanCard}){
         
             <Form reply onSubmit= {sendNewChat}>
                 <Form.TextArea as='textarea' placeholder="Join Chat" value={userInput} onChange= {e=>setuserInput(e.target.value)}/>
-                <Button content="add chat"/>
+                <Button content="Add Chat"/>
             </Form>
         </Comment.Group>
     )

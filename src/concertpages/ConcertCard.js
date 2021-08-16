@@ -2,18 +2,25 @@ import { Item } from 'semantic-ui-react'
 import { Button, Icon,  Modal } from 'semantic-ui-react'
 import { useState } from "react";
 import AttendNewConcert from './AttendNewConcert';
+import './main.css'
 
 
 
 
-function ConcertCard({concerts, fanName, currentFan, transferConcertID, grabConcertObj, attendance, selectConcertCard, loggedFan_id}){ 
+function ConcertCard({concerts, fanName, currentFan, transferConcertID, grabConcertObj, attendance, selectConcertCard, selectConcerCardInfo, concert_page_artist_name, loggedFan_id}){ 
 
-    const {id, venue, location, date,  price, people_attending, fan_usernames, fan_locations, attending_concerts } = concerts
+    const {id, venue, location, date,  price, image, people_attending, fan_usernames, fan_locations, attending_concerts } = concerts
+
+    // findArtist = all_artists.find(artist => artist.id = selectConcerCardInfo.artist_id )
+    // getArtistName = findArtist.name 
+     
+
+    // concert id 
   
    
     const description = [
-        `Get back in action at ${venue} on ${date}',
-        'Artist name performs at ${location}!`,
+        `Get back in action at ${venue} on ${date}'
+        '${concert_page_artist_name} performs at ${location}!`,
       ].join(' ')
 
       const [firstOpen, setFirstOpen] = useState(false)
@@ -24,22 +31,32 @@ function ConcertCard({concerts, fanName, currentFan, transferConcertID, grabConc
      
 
 return (
-  <div onMouseOver = {() => grabConcertObj(concerts)}>
+  <div className = "card-page" onMouseOver = {() => grabConcertObj(concerts)}>
 <Item.Group>
+  <div className="each-card">
     <Item>
-      <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+      <Item.Image size='small' className= "image" src={image} />
 
       <Item.Content>
+
+        <div className= "concert-id">
         <Item.Header as='a'>Concert #{id}</Item.Header>
+        </div>
+        
         <Item.Description>
-          <p>{description}</p>
+          <p>Venue: {venue}</p>
+          <p>Location: {location}</p>
+          <p>Date: {date}</p>
           <p>
             Price: {price}
           </p>
         </Item.Description>
       </Item.Content>
     </Item>
-    <Button onClick={() => setFirstOpen(true)}>More Info</Button>
+    </div>
+    <div className= "more-info">
+    <Button  onClick={() => setFirstOpen(true)}>More Info</Button>
+    </div>
 
 <Modal
   onClose={() => setFirstOpen(false)}

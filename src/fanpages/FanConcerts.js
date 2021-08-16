@@ -4,7 +4,7 @@ function FanConcerts({concert}){
 
   // All concerts that the fan is attending
 
-    const {id, venue, location, date,  price} = concert
+    const {id, venue, location, image, date,  price} = concert
   
    
     const description = [
@@ -15,11 +15,13 @@ function FanConcerts({concert}){
 return (
 <Item.Group>
     <Item>
-      <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+      <Item.Image size='small' src={image}/>
        <Item.Content>
         <Item.Header as='a'>Concert #{id}</Item.Header>
         <Item.Description>
-          <p>{description}</p>
+        <p>Venue: {venue}</p>
+          <p>Location: {location}</p>
+          <p>Date: {date}</p>
           <p>
             Price: {price}
           </p>

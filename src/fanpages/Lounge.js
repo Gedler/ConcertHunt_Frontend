@@ -4,7 +4,7 @@ import { Button, Card, Image } from 'semantic-ui-react'
 import FanConcerts from "./FanConcerts";
 import FanArtists from "./FanArtists";
 import MainChat from "./MainChat";
-
+import "./lounge.css"
 
 
 function Lounge({all_fans, getFanObj, displaySelectedFanConcerts, displaySelectedFanArtists, artistFollowerCount, loggedFan_id, fanName, selectFanCard}){
@@ -17,14 +17,22 @@ function Lounge({all_fans, getFanObj, displaySelectedFanConcerts, displaySelecte
     return <FanCard all_fans={each_fan} getFanObj = {getFanObj} renderFanConcerts = {renderFanConcerts} renderFanArtists = {renderFanArtists} selectFanCard = {selectFanCard} fanName = {fanName}/>
 
 
-})
+})  
 
 
     return(
-        <div>
-            <Header></Header>
+        <div className="entire-page">
+
+          
+          <Header></Header>
+          
+            <div className="fans">
             {displayAllFans}
+            </div>
+            <div className="chat">
+                <h1 className="lounge-chat">Lounge Chat</h1>
             <MainChat fanName={fanName} ></MainChat>
+            </div>
           
             
         </div>

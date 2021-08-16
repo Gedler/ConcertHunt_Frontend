@@ -1,0 +1,50 @@
+.concerts {
+    display: inline-block;
+}
+
+.more-info {
+    margin-left: 10px;
+    background-color:transparent;
+    font-family: fantasy;
+    
+}
+
+.card-page {
+    font-family: fantasy;
+    font-size: small;
+    margin:50px;
+    background-color:gold;
+    border:groove;
+    border-color: blueviolet;
+    border-radius: 30px;
+    text-decoration-color: hsl(49, 76%, 53%);
+    font-style:normal;
+    font-display:inherit;
+    font-weight: bolder;
+    width: 100%;
+    
+    color: blueviolet
+}
+
+
+.ui.image {
+
+    
+    border:groove;
+    border-color: whitesmoke;
+    display:inline-flex;
+    margin: 20px;
+
+}
+
+.sub-header {
+    padding: 59px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 60px;
+    color: gold;
+    margin-left: 175px;
+}
+
+.concert-id {
+    font-size: 20px;
+}

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import "./header.css"
 
 
 function Header() {
@@ -18,9 +19,9 @@ function Header() {
 
 return(
 
-    <div classname="Header">
-        <h1>Concert Hunt</h1>
-        <nav classname="Header">
+    <div className="Header">
+        <h1 className="header-text">Concert Hunt</h1>
+        <nav classname="navbar">
             
             <Link to="/main"><a href="#">Home|</a></Link>
             <Link to="lounge"><a href="/lounge">Lounge|</a></Link>

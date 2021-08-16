@@ -7,6 +7,8 @@ import { useState } from "react";
 import LoggedUserFollowCard from "./LoggedUserFollowCard";
 import LoggedUserConcertCard from "./LoggedUserConcertCard";
 import ProfileChatBox from "./ProfileChatbox";
+import ArtistPage from "../artistpages/ArtistPage";
+import "../concertpages/main.css"
 
 function Profile({loggedFan_id, displayLoggedUserConcerts, fanName, attending_concerts, fanFollowers, displayLoggedUserFollowing, displayLoggedUserFollowingID, artistFollowerCount, getSelectedLoggedUserConcert, concert_attending_id }) {
    
@@ -47,8 +49,16 @@ follower3ID = displayLoggedUserFollowingID[2]
 follower4ID = displayLoggedUserFollowingID[3]
 follower5ID = displayLoggedUserFollowingID[4]
 
+const [newFollow, setNewFollow] = useState({})
+
+function updateFollow(new_follow) {
+    setNewFollow(new_follow)
+}
 
 
+
+
+const shortcut = displayLoggedUserFollowing.map(each_artist => {return <ArtistPage updateFollow={updateFollow} each_artist = {each_artist} artistFollowerCount = {artistFollowerCount}/>}) 
 const renderUserFollowing = displayLoggedUserFollowing.map(each_artist => {return <LoggedUserFollowCard each_artist = {each_artist} artistFollowerCount = {artistFollowerCount}/>}) 
 const renderUserConcerts = displayLoggedUserConcerts.map(concert => {return <LoggedUserConcertCard concert = {concert} getSelectedLoggedUserConcert = {getSelectedLoggedUserConcert} concert_attending_id = {concert_attending_id}/>})
 
@@ -58,11 +68,15 @@ return (
         <Header></Header>
         <h4>My Profile</h4>
         <h1>My Concert List</h1>
-        {renderUserConcerts}
+        <div className="concerts">{renderUserConcerts}</div>
         <h1>My Artist List</h1>
+        <div className="artists">
         {renderUserFollowing}
-        <h1>Your Live Chat</h1>
+        </div>
+        <div className="chat">
+        <h1 className="lounge-chat">Your Live Chat</h1>
         <ProfileChatBox loggedFan_id = {loggedFan_id} fanName = {fanName}></ProfileChatBox> 
+        </div>
     </div>
 )
 }

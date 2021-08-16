@@ -3,7 +3,7 @@ import {useState} from 'react'
 
 function LoggedUserConcertCard({concert, getSelectedLoggedUserConcert, concert_attending_id }){
 
-    const {id, venue, location, date,  price} = concert
+    const {id, venue, location, date, image, price} = concert
     const [isClicked, setIsClicked] = useState(false)
   
    
@@ -46,14 +46,16 @@ function LoggedUserConcertCard({concert, getSelectedLoggedUserConcert, concert_a
 
 
 return (
-  <div onMouseOver = {() => getSelectedLoggedUserConcert(concert)}>
+  <div className= "card-page" onMouseOver = {() => getSelectedLoggedUserConcert(concert)}>
 <Item.Group>
     <Item>
-      <Item.Image size='small' src='https://react.semantic-ui.com/images/wireframe/image.png' />
+      <Item.Image size='small' src= {image} />
        <Item.Content>
         <Item.Header as='a'>Concert #{id}</Item.Header>
         <Item.Description>
-          <p>{description}</p>
+        <p>Venue: {venue}</p>
+          <p>Location: {location}</p>
+          <p>Date: {date}</p>
           <p>
             Price: {price}
           </p>
